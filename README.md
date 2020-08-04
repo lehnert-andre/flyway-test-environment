@@ -4,7 +4,7 @@ Dieses Beispiel-Projekt soll dir helfen die verschiedenen Flyway Integrationen u
 
 ### Kurse
 
-- [Flyway mit Maven](#headin)
+- [Flyway mit Maven](./flyway-maven/README.md)
 
 ## Flyway Skripte
 
