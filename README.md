@@ -4,8 +4,8 @@ Dieses Beispiel-Projekt soll dir helfen die verschiedenen Flyway Integrationen u
 
 ### Kurse
 
-- [Flyway mit Maven](https://github.com/lehnert-andre/flyway-test-environment/blob/maven/README.md)
-- [Flyway mit Gradle](https://github.com/lehnert-andre/flyway-test-environment/blob/gradle/README.md)
+- [Flyway mit Maven](https://github.com/lehnert-andre/flyway-test-environment/blob/maven/flyway-maven/README.md)
+- [Flyway mit Gradle](https://github.com/lehnert-andre/flyway-test-environment/blob/gradle/flyway-gradle/README.md)
 
 ## Flyway Skripte
 
