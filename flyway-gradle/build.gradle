@@ -1,16 +1,38 @@
+import org.flywaydb.gradle.task.FlywayMigrateTask
+
 plugins {
 	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-}
-
-ext {
-	generatedMapperSourcesDir = "${buildDir}/generated-src/mapstruct/main"
+	id "org.flywaydb.flyway" version "6.5.3"
 }
 
 configurations {
 	mapstruct
 }
+
+// default configuration to run flywayClean
+// use $ sh ./gradlew flywayClean flywayMigrate flywayInfo -Pflyway.url=jdbc:postgresql://localhost:65432/flyway -Pflyway.user=flyway -Pflyway.password=flyway -Pflyway.schemas=flyway -Pflyway.defaultSchema=flyway -Pflyway.locations=filesystem:src/main/resources/db/migration/all,filesystem:src/main/resources/db/migration/LOCAL
+flyway {
+	url = 'jdbc:postgresql://localhost:65432/flyway'
+	user = 'flyway'
+	password = 'flyway'
+	schemas = ['flyway']
+	defaultSchema = 'flyway'
+}
+
+// custom task to run flywayMigrate directly on LOCAL
+task flywayMigrateLOCAL(type: FlywayMigrateTask) {
+	url = 'jdbc:postgresql://localhost:65432/flyway'
+	user = 'flyway'
+	password = 'flyway'
+	schemas = ['flyway']
+	defaultSchema = 'flyway'
+	locations = ['filesystem:src/main/resources/db/migration/all', 'filesystem:src/main/resources/db/migration/LOCAL']
+	outOfOrder = false
+	baselineOnMigrate = true
+}
+
 
 group = 'de.exxcellent.school.gradle'
 version = '0.0.1-SNAPSHOT'
