@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  flyway-db:
+    container_name: flyway-db
+    image: postgres:12.2-alpine # See https://hub.docker.com/_/postgres for more info
+    ports:
+      - "65432:5432"
+    stop_signal: SIGTERM # To ensure a smoother stop of PG database
+    environment: # values see file .env
+      - DB_NAME=flyway
+      - DB_SCHEMA_NAME=flyway
+      - POSTGRES_PASSWORD=flyway
+    volumes:
+      - flyway_data:/var/lib/postgresql/data
+      - ./database/db-setup:/docker-entrypoint-initdb.d     # Ensures that the DB initialization scripts
+      # run once if there is no DB yet
+
+volumes:
+  # Storing postgres DB data
+  flyway_data:
+    external: true
+    name: flyway_data
