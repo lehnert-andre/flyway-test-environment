@@ -60,25 +60,6 @@ Mit dem Befehl `sh ./gradlew flywayClean flywayMigrate` soll die Datenbank zurü
 die Skripte aus `src/main/resources/db/migration/all` und `src/main/resources/db/migration/LOCAL`
 eingespielt werden.
 
-Beispielaufruf:
-
-```
-$ sh ./gradlew flywayClean flywayMigrate flywayInfo -Pflyway.url=jdbc:postgresql://localhost:65432/flyway -Pflyway.user=flyway -Pflyway.password=flyway -Pflyway.schemas=flyway -Pflyway.defaultSchema=flyway -Pflyway.locations=filesystem:src/main/resources/db/migration/all,filesystem:src/main/resources/db/migration/LOCAL
-
-> Task :flywayInfo
-Schema version: 1.1
-+-----------+---------+-------------------+------+---------------------+---------+
-| Category  | Version | Description       | Type | Installed On        | State   |
-+-----------+---------+-------------------+------+---------------------+---------+
-| Versioned | 1.0     | todo create table | SQL  | 2020-08-04 21:09:33 | Success |
-| Versioned | 1.1     | todo insert todos | SQL  | 2020-08-04 21:09:33 | Success |
-+-----------+---------+-------------------+------+---------------------+---------+
-
-
-BUILD SUCCESSFUL in 1s
-3 actionable tasks: 3 executed
-```
-
 ### Flyway Migration zur Laufzeit
 
 Zur Einrichtung einer Datenbankmigration zur Laufzeit folge dieser Anleitung:
