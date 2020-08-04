@@ -59,6 +59,29 @@ Mit dem Befehl `sh ./mvnw flyway:clean flyway:migrate` soll die Datenbank zurüc
 die Skripte aus `src/main/resources/db/migration/all` und `src/main/resources/db/migration/LOCAL`
 eingespielt werden.
 
+Beispielausgabe:
+
+```
+$ sh ./mvnw flyway:clean flyway:migrate
+...
+[INFO] --- flyway-maven-plugin:6.1.4:clean (default-cli) @ flyway-maven ---
+[INFO] Flyway Community Edition 6.1.4 by Redgate
+[INFO] Database: jdbc:postgresql://localhost:65432/flyway (PostgreSQL 12.2)
+[INFO] Successfully cleaned schema "flyway" (execution time 00:00.026s)
+[INFO] 
+[INFO] --- flyway-maven-plugin:6.1.4:migrate (default-cli) @ flyway-maven ---
+[INFO] Database: jdbc:postgresql://localhost:65432/flyway (PostgreSQL 12.2)
+[INFO] Successfully validated 2 migrations (execution time 00:00.012s)
+[INFO] Creating Schema History table "flyway"."flyway_schema_history" ...
+[INFO] Current version of schema "flyway": << Empty Schema >>
+[INFO] Migrating schema "flyway" to version 1.0 - todo create table
+[INFO] Migrating schema "flyway" to version 1.1 - todo insert todos
+[INFO] Successfully applied 2 migrations to schema "flyway" (execution time 00:00.050s)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
+
 ### Flyway Migration zur Laufzeit
 
 Zur Einrichtung einer Datenbankmigration zur Laufzeit folge dieser Anleitung:
