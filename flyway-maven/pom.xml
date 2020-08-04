@@ -19,7 +19,27 @@
 		<!-- Dependency versions -->
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+
+		<!-- Flyway default/ fallback configuration -->
+		<database.skipMigration>true</database.skipMigration>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>LOCAL</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<database.skipMigration>false</database.skipMigration>
+				<database.url>jdbc:postgresql://localhost:65432/flyway</database.url>
+				<database.user>flyway</database.user>
+				<database.password>flyway</database.password>
+				<database.environment>LOCAL</database.environment>
+				<database.schema>flyway</database.schema>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 
@@ -81,6 +101,40 @@
 
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>6.1.4</version>
+				<configuration>
+					<!-- resolved by the profile properties -->
+
+					<!-- skip database migration -->
+					<skip>${database.skipMigration}</skip>
+
+					<!-- database connection -->
+					<url>${database.url}</url>
+					<user>${database.user}</user>
+					<password>${database.password}</password>
+
+					<!-- migration scripts -->
+					<locations>
+						<location>filesystem:src/main/resources/db/migration/all</location>
+						<!-- modify initial data for the selected profile environment -->
+						<location>filesystem:src/main/resources/db/migration/${database.environment}</location>
+					</locations>
+
+					<!-- override default schema (public) -->
+					<schemas>
+						<schema>${database.schema}</schema>
+					</schemas>
+					<defaultSchema>${database.schema}</defaultSchema>
+
+					<!-- migration strategy -->
+					<outOfOrder>false</outOfOrder>
+
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
