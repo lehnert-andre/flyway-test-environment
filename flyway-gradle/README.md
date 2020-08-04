@@ -98,6 +98,6 @@ spring.flyway.password=flyway
 
 #### Ziel
 
-Mit dem Befehl `sh ./gradlew bootRun` soll beim Start der Anwendung die Datenbank zurückgesetzt und 
+Mit dem Befehl `sh ./mvnw spring-boot:run` soll beim Start der Anwendung die Datenbank zurückgesetzt und 
 die Skripte aus `src/main/resources/db/migration/all` und `src/main/resources/db/migration/LOCAL`
 eingespielt werden.
