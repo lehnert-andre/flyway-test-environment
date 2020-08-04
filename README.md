@@ -5,6 +5,7 @@ Dieses Beispiel-Projekt soll dir helfen die verschiedenen Flyway Integrationen u
 ### Kurse
 
 - [Flyway mit Maven](./flyway-maven/README.md)
+- [Flyway mit Gradle](./flyway-gradle/README.md)
 
 ## Flyway Skripte
 
