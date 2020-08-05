@@ -6,6 +6,12 @@ Dieses Beispiel-Projekt soll dir helfen die verschiedenen Flyway Integrationen u
 
 - [Flyway mit Maven](./flyway-maven/README.md)
 
+## Testumgebung starten
+
+`sh ./startup.sh` startet eine PostgreSQL-Datenbank im Docker.
+
+Für die Kurse muss der passende Branch auchgescheckt werden.
+
 ## Flyway Skripte
 
 Bei allen Integrationsformen und Strategien brauchen wir SQL-Skripte, 
