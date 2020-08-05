@@ -2,16 +2,48 @@
 
 Dieses Beispiel-Projekt soll dir helfen die verschiedenen Flyway Integrationen und Strategien kennenzulernen.
 
+Dazu wird eine Docker-Umgebung mit einer Datenbank bereitgestellt. Die Kurse enthalten Projekte und zusätzliche Ressourcen, 
+um bestimmte Aufgabe mit Flyway zu erledigen und auf diese Weise den Umgang mit Flyway zu lernen.
+
 ### Kurse
 
 - [Flyway mit Maven](https://github.com/lehnert-andre/flyway-test-environment/blob/maven/flyway-maven/README.md)
+  
+  Kurs starten per: `git checkout -b maven origin/maven`
+  
+  Es erscheint ein `flyway-maven` Spring Boot Projekt. 
+  Die Lösungen sind:
+  
+  - Flyway als Plugin nutzen: `git checkout -b maven-plugin-solution origin/maven-plugin-solution`
+  - Flyway zur Laufzeit nutzen: `git checkout -b maven-runtime-solution origin/maven-runtime-solution`
+  
 - [Flyway mit Gradle](https://github.com/lehnert-andre/flyway-test-environment/blob/gradle/flyway-gradle/README.md)
+
+  Kurs starten per: `git checkout -b gradle origin/gradle`
+
+  Es erscheint ein `flyway-gradle` Spring Boot Projekt.
+  Die Lösungen sind:
+    
+  - Flyway als Plugin nutzen: `git checkout -b gradle-plugin-solution origin/gradle-plugin-solution`
+  - Flyway zur Laufzeit nutzen: `git checkout -b gradle-runtime-solution origin/gradle-runtime-solution`
+    
 
 ## Testumgebung starten
 
 `sh ./startup.sh` startet eine PostgreSQL-Datenbank im Docker.
 
-Für die Kurse muss der passende Branch auchgescheckt werden.
+```
+Host: localhost:65432
+User: flyway
+Password: flyway
+Database: flyway
+Schema: flyway
+```
+
+Für die Kurse muss der passende Branch genutzt werden. 
+Die Branches besitzen eine eigene README.
+
+**Achtung:** Bitte die Datenbank und ggf. eine laufende Anwendung vor dem Branch-Wechsel beenden.
 
 ## Flyway Skripte
 
