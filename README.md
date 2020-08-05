@@ -17,6 +17,14 @@ um bestimmte Aufgabe mit Flyway zu erledigen und auf diese Weise den Umgang mit 
   - Flyway als Plugin nutzen: `git checkout -b maven-plugin-solution origin/maven-plugin-solution`
   - Flyway zur Laufzeit nutzen: `git checkout -b maven-runtime-solution origin/maven-runtime-solution`
   
+- [Flyway Baseline mit Maven](https://github.com/lehnert-andre/flyway-test-environment/blob/maven-baseline/flyway-maven/README.md)
+  
+  Kurs starten per: `git checkout -b maven-baseline origin/maven-baseline`
+  
+  Es erscheint ein `flyway-maven` Spring Boot Projekt. 
+  Änderungen am Code sind nicht notwendig, 
+  daher gibt es keinen Lösungsbranch.
+  
 - [Flyway mit Gradle](https://github.com/lehnert-andre/flyway-test-environment/blob/gradle/flyway-gradle/README.md)
 
   Kurs starten per: `git checkout -b gradle origin/gradle`
