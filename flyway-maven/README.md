@@ -1,4 +1,4 @@
-# Flyway Grundlagen mit Maven
+# Flyway Baseline mit Maven
 
 ## Aufgabe
 
@@ -19,65 +19,51 @@
       
    2. Öffne ein neues Terminal und navigiere unter `flyway-basics/flyway-maven`. 
    
-   3. Starte einen Integrationstest mit `sh ./mvnw test`.
-      Der Test führt für uns _ohne Flyway_ die SQL-Statements 
-      von `src/test/resources/init-todos.sql` auf der gestarteten Datenbank aus. 
-      Die Todo-Tabelle existiert auch nach dem Test und können für den Start der echten Anwendung genutzt werden.
+   3. Die Migrationsskripte `V1_0__todo_create_table.sql` und 
+      `V1_1__todo_insert_todos.sql` existieren bereits unter 
+      `src/main/resources/db/migration`. 
+      Allerdings wurden mit `database/db-setup/03-createTodoTable_insertData.sql` 
+      bereits ein Datenbankschema angelegt.
       
    4. Starte die Anwendung mit `sh ./mvnw spring-boot:run` und öffne den Browser http://localhost:9001/api/todos
-
-2. Nutze die SQL-Statements aus `src/test/resources/init-todos.sql`, 
-um die SQL-Skripte unter `src/main/resources/db/migration/all` für das Schema und 
-`src/main/resources/db/migration/LOCAL` für die Daten anzulegen.
+      
+      Die Anwendung funktioniert, da das Datenbankschema und die Daten bereits existieren.
+   
+2. Versuche eine Datenbank-Migration mit `sh ./mvnw flyway:migrate` durchzuführen.
+   
+   Flyway erkennt, dass bereits Tabellen existieren und keine `flyway_schema_history` Tabelle existiert.
+   ```
+   $ sh ./mvnw flyway:migrate
+   ...
+   [INFO] BUILD FAILURE
+   [INFO] ------------------------------------------------------------------------
+   ...
+   [ERROR] Failed to execute goal org.flywaydb:flyway-maven-plugin:6.1.4:migrate (default-cli) on project flyway-maven: org.flywaydb.core.api.FlywayException: 
+     Found non-empty schema(s) "flyway" but no schema history table. 
+     Use baseline() or set baselineOnMigrate to true to initialize the schema history table. -> [Help 1]
+   ```
+   
+3. Führe ein Flyway Baseline aus, um die `flyway_schema_history` Tabelle anzulegen.
+   Die Baseline-Version sollte so gewählt werden, dass die beiden Migrationsskripte 
+   nicht ausgeführt werden.
+   
+   Siehe https://flywaydb.org/documentation/maven/baseline für die passende Baseline-Version.
+   
+   **Hinweis:** Flyway-Parameter besitzen den Präfix `flyway.`
   
-   **Frage:** Bauchen wir noch das `DROP TABLE` Statement?
-   
-3. Verwende eine der beiden Integrationsformen für Flyway:
-   Zur Build- oder zur Laufzeit.
-   
-   **Tipp:** Beide Integrationsformen lassen sich auch kombinieren.
-
-### Flyway Migration beim Build
-
-Folge der Anleitung unter 
-
-https://flywaydb.org/documentation/maven/
-
-zum Einrichten der Datenbankmigration über Maven.
-
-Hinweis zur Konfiguration des Maven-Plugins:
-```
-<!-- Flyway-Plugin Properties haben einen 'flyway.'-Präfix -->
-<flyway.url>jdbc:postgresql://localhost:65432/flyway</flyway.url>
-<flyway.user>flyway</flyway.user>
-<flyway.password>flyway</flyway.password>
-```
-
 #### Ziel
 
-Mit dem Befehl `sh ./mvnw flyway:clean flyway:migrate` soll die Datenbank zurückgesetzt und 
-die Skripte aus `src/main/resources/db/migration/all` und `src/main/resources/db/migration/LOCAL`
-eingespielt werden.
+`sh ./mvnw flyway:migrate` soll erfolgreich ohne Migrationen ausgeführt werden können.
 
-### Flyway Migration zur Laufzeit
-
-Zur Einrichtung einer Datenbankmigration zur Laufzeit folge dieser Anleitung:
-
-https://flywaydb.org/documentation/plugins/springboot
-
-und nutze diese Parameter für die `resources/application.properties` Datei:
-
-https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
-
-Parameter zur Datenbank-Anbindung:
 ```
-spring.flyway.url=jdbc:postgresql://localhost:65432/flyway
-spring.flyway.user=flyway
-spring.flyway.password=flyway
+$ sh ./mvnw flyway:migrate
+[INFO] --- flyway-maven-plugin:6.1.4:migrate (default-cli) @ flyway-maven ---
+[INFO] Flyway Community Edition 6.1.4 by Redgate
+[INFO] Database: jdbc:postgresql://localhost:65432/flyway (PostgreSQL 12.2)
+[INFO] Successfully validated 3 migrations (execution time 00:00.018s)
+[INFO] Current version of schema "flyway": 1.2
+[INFO] Schema "flyway" is up to date. No migration necessary.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
 ```
-
-#### Ziel
-
-Mit dem Befehl `sh ./mvnw spring-boot:run` soll beim Start der Anwendung die Datenbank zurückgesetzt und 
-die Skripte aus `src/main/resources/db/migration/all` und `src/main/resources/db/migration/LOCAL`
-eingespielt werden.
